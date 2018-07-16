@@ -1,5 +1,5 @@
-node {
-    agent "pierre"
+node('pierr'){
+    
     def app
 
     try {
