@@ -9,7 +9,7 @@ node {
            ])
         }
         stage ('Build') {
-            app = docker.build("docker/haproxy")
+            app = docker.build("haproxy", "-f haproxy/Dockerfile .")
         }
         stage ('Test Container'){
           app.inside {
