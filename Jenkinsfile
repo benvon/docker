@@ -20,6 +20,7 @@ node {
           docker.withRegistry('https://registry.benvon.net'){
             app.push("autobuild-${env.BUILD_NUMBER}")
             app.push("latest")
+          }
         }
 /*
         stage ('Tests') {
