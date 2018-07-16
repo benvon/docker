@@ -1,4 +1,4 @@
-node('pierr'){
+node('pierre'){
     
     def app
 
