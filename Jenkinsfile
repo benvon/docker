@@ -1,4 +1,5 @@
 node {
+    agent "pierre"
     def app
 
     try {
