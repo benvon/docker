@@ -21,17 +21,19 @@ node {
             app.push("autobuild-${env.BUILD_NUMBER}")
             app.push("latest")
         }
-        #stage ('Tests') {
-	#        parallel 'static': {
-	#            sh "echo 'shell scripts to run static tests...'"
-	#        },
-	#        'unit': {
-	#            sh "echo 'shell scripts to run unit tests...'"
-	#        },
-	#        'integration': {
-	#            sh "echo 'shell scripts to run integration tests...'"
-	#        }
-        #}
+/*
+        stage ('Tests') {
+	        parallel 'static': {
+	            sh "echo 'shell scripts to run static tests...'"
+	        },
+	        'unit': {
+	            sh "echo 'shell scripts to run unit tests...'"
+	        },
+	        'integration': {
+	            sh "echo 'shell scripts to run integration tests...'"
+	        }
+        }
+*/
       	stage ('Deploy') {
             sh "echo 'shell scripts to deploy to server...'"
       	}
