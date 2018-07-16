@@ -9,8 +9,10 @@ node('pierre'){
                                  credentialsId: 'benvon_net_jenkins_ssh']]
            ])
         }
-        stage ('Build') {
-            app = docker.build("haproxy", "-f haproxy/Dockerfile .")
+        stage ('Build haproxy') {
+          dir('haproxy'){
+            app = docker.build("haproxy")
+          }
         }
         stage ('Test Container'){
           app.inside {
