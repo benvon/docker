@@ -11,9 +11,9 @@ node('pierre'){
            ])
         }
         for (buildimage in images){
-          stage ('Build buildimage') {
-            dir('buildimage'){
-              app = docker.build("buildimage")
+          stage ('Build ${buildimage}') {
+            dir('${buildimage}'){
+              app = docker.build("${buildimage}")
             }
           }
           stage ('Test Container'){
