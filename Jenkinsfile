@@ -1,6 +1,7 @@
 node('pierre'){
     
     def app
+    def images = ["haproxy", "mysql57-bv", "php72-bv"]
 
     try {
         stage ('Code Checkout') {
@@ -9,20 +10,22 @@ node('pierre'){
                                  credentialsId: 'benvon_net_jenkins_ssh']]
            ])
         }
-        stage ('Build haproxy') {
-          dir('haproxy'){
-            app = docker.build("haproxy")
+        for (buildimage in images){
+          stage ('Build buildimage') {
+            dir('buildimage'){
+              app = docker.build("buildimage")
+            }
           }
-        }
-        stage ('Test Container'){
-          app.inside {
-            sh 'echo "Tests passed"'
+          stage ('Test Container'){
+            app.inside {
+              sh 'echo "Tests passed"'
+            }
           }
-        }
-        stage('Push to repo'){
-          docker.withRegistry('https://registry.benvon.net'){
-            app.push("autobuild-${env.BUILD_NUMBER}")
-            app.push("latest")
+          stage('Push to repo'){
+            docker.withRegistry('https://registry.benvon.net'){
+              app.push("autobuild-${env.BUILD_NUMBER}")
+              app.push("latest")
+            }
           }
         }
 /*
