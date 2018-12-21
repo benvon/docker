@@ -1,7 +1,8 @@
 node('pierre'){
     
     def app
-    def images = ["varnish", "haproxy", "mysql57-bv", "php72-bv"]
+    #def images = ["varnish", "haproxy", "mysql57-bv", "php72-bv"]
+    def images = ["haproxy", "mysql57-bv", "php72-bv"]
 
     try {
         stage ('Code Checkout') {
