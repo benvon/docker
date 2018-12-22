@@ -9,7 +9,6 @@ RUN set -ex; \
 	apt-get install -y --no-install-recommends \
 		libjpeg-dev \
 		libpng-dev \
-                libzip \
                 libzip-dev \
 	; \
 	\
