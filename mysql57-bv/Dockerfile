@@ -24,7 +24,7 @@ RUN rpmkeys --import https://repo.mysql.com/RPM-GPG-KEY-mysql \
   && mkdir /docker-entrypoint-initdb.d
 
 # Do some basic config work
-RUN mkdir /etc/my.cnf.d/ && echo "\!includedir /etc/my.cnf.d >> /etc/my.cnf"
+RUN if [[ ! -d /etc/my.cnf.d ]]; then mkdir /etc/my.cnf.d/; fi && echo "\!includedir /etc/my.cnf.d >> /etc/my.cnf"
 
 VOLUME /var/lib/mysql
 
