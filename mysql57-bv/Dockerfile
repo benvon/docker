@@ -23,6 +23,9 @@ RUN rpmkeys --import https://repo.mysql.com/RPM-GPG-KEY-mysql \
   && yum clean all \
   && mkdir /docker-entrypoint-initdb.d
 
+# Do some basic config work
+RUN mkdir /etc/my.cnf.d/ && echo "\!includedir /etc/my.cnf.d >> /etc/my.cnf"
+
 VOLUME /var/lib/mysql
 
 COPY docker-entrypoint.sh /entrypoint.sh
