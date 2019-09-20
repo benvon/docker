@@ -29,8 +29,10 @@ node('pierre'){
             }
           }
 	  stage('clean up local'){
-	    sh 'docker image rm autobuild-${env.BUILD_NUMER}'
-	    sh 'docker image rm latest'
+            script {
+	      sh 'docker image rm autobuild-' + ${env.BUILD_NUMER}
+	      sh 'docker image rm latest'
+            }
 	  }	
         }
 /*
