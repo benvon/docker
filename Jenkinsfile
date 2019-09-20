@@ -28,6 +28,10 @@ node('pierre'){
               app.push("latest")
             }
           }
+	  stage('clean up local'){
+	    sh 'docker image rm autobuild-' + ${env.BUILD_NUMER}
+	    sh 'docker image rm latest'
+	  }	
         }
 /*
         stage ('Tests') {
