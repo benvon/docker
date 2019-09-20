@@ -30,7 +30,7 @@ node('pierre'){
           }
 	  stage('clean up local'){
             script {
-	      sh 'docker image rm autobuild-' + ${env.BUILD_NUMER}
+	      sh 'docker image rm autobuild-${env.BUILD_NUMER}'
 	      sh 'docker image rm latest'
             }
 	  }	
