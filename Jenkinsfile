@@ -14,7 +14,7 @@ node('pierre'){
         for (buildimage in images){
           stage ("Build ${buildimage}") {
             dir("${buildimage}"){
-              app = docker.build("${buildimage}")
+              app = docker.build("${buildimage}", "--no-cache .")
             }
           }
           stage ('Test Container'){
