@@ -1,4 +1,4 @@
-## Global vars:
+// Global vars:
 def images = ["haproxy", "mysql57-bv", "php72-bv", "php73-bv"]
 
 pipeline {
