@@ -1,5 +1,5 @@
 // Global vars:
-def images = ["haproxy", "mysql57-bv", "php72-bv", "php73-bv"]
+images = ["haproxy", "mysql57-bv", "php72-bv", "php73-bv"]
 
 pipeline {
   agent {
