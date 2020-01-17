@@ -8,7 +8,7 @@ node('pierre'){
         stage ('Code Checkout') {
            checkout([$class: 'GitSCM', branches: [[name: '*/master']],
               userRemoteConfigs: [[url: 'git@github.com:benvon/docker.git',
-                                 credentialsId: 'benvon_net_jenkins_ssh']]
+                                 credentialsId: 'jenkins-github-ssh']]
            ])
         }
         for (buildimage in images){
