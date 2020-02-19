@@ -21,7 +21,9 @@ node('pierre'){
             app.inside {
               sh 'ls -la /'
             }
-            anchore name: buildimage
+            writeFile file 'scanme', text: '${buildimage}'
+            anchore name: 'scanme'
+            sh 'rm scanme'
           }
           stage('Push to repo'){
             docker.withRegistry('https://registry.benvon.net','docker-publisher'){
