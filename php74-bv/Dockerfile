@@ -20,6 +20,7 @@ RUN set -ex; \
 		libjpeg-dev \
 		libmagickwand-dev \
 		libpng-dev \
+                libzip-dev \
 	; \
 	\
         docker-php-ext-configure gd --with-freetype --with-jpeg; \
