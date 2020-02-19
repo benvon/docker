@@ -21,7 +21,7 @@ node('pierre'){
             app.inside {
               sh 'ls -la /'
             }
-            writeFile file: 'scanme', text: '${buildimage}'
+            writeFile file: 'scanme', text: "${buildimage}"
             anchore name: 'scanme'
             sh 'rm scanme'
           }
