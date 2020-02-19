@@ -23,7 +23,7 @@ node('pierre'){
             }
           }
           stage('Push to repo'){
-            docker.withRegistry('https://registry.benvon.net'){
+            docker.withRegistry('https://registry.benvon.net','docker-publisher'){
               app.push("autobuild-${env.BUILD_NUMBER}")
               app.push("latest")
             }
