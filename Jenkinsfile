@@ -19,8 +19,9 @@ node('pierre'){
           }
           stage ('Test Container'){
             app.inside {
-              sh 'echo "Tests passed"'
+              sh 'ls -la /'
             }
+            anchore name: ${biuldimage}
           }
           stage('Push to repo'){
             docker.withRegistry('https://registry.benvon.net','docker-publisher'){
