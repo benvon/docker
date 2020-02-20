@@ -21,15 +21,20 @@ node('pierre'){
             app.inside {
               sh 'ls -la /'
             }
-            writeFile file: 'scanme', text: "${buildimage}"
-            anchore name: 'scanme'
-            sh 'rm scanme'
+            //writeFile file: 'scanme', text: "${buildimage}"
+            //anchore name: 'scanme'
+            //sh 'rm scanme'
           }
           stage('Push to repo'){
             docker.withRegistry('https://registry.benvon.net','docker-publisher'){
               app.push("autobuild-${env.BUILD_NUMBER}")
               app.push("latest")
             }
+          }
+          stage('Scan image with Anchore'){
+            writeFile file: 'scanme', text: "https://registry.benvon.net/${buildimage}:autobuild-${env.BUILD_NUMBER}"
+            anchore name: 'scanme'
+            sh 'rm scanme'
           }
 	  stage('clean up local'){
             script {
