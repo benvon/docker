@@ -4,7 +4,6 @@ node('pierre'){
     //def images = ["varnish", "haproxy", "mysql57-bv", "php72-bv"]
     def images = ["haproxy", "mysql57-bv", "php72-bv", "php73-bv", "php74-bv"]
 
-    try {
         stage ('Code Checkout') {
            checkout([$class: 'GitSCM', branches: [[name: '*/master']],
               userRemoteConfigs: [[url: 'git@github.com:benvon/docker.git',
@@ -16,25 +15,22 @@ node('pierre'){
             dir("${buildimage}"){
               app = docker.build("${buildimage}", "--no-cache .")
             }
-          }
-          stage ('Test Container'){
-            app.inside {
+            app.inside { 
               sh 'ls -la /'
             }
-            //writeFile file: 'scanme', text: "${buildimage}"
-            //anchore name: 'scanme'
-            //sh 'rm scanme'
           }
           stage('Push to repo'){
             docker.withRegistry('https://registry.benvon.net','docker-publisher'){
               app.push("autobuild-${env.BUILD_NUMBER}")
-              app.push("latest")
             }
           }
-          stage('Scan image with Anchore'){
+          stage('Scan with Anchore'){
             writeFile file: 'scanme', text: "registry.benvon.net/${buildimage}:autobuild-${env.BUILD_NUMBER}"
-            anchore name: 'scanme'
+            anchore annotations: [[key: 'imageType', value: "${buildimage}"]], autoSubscribeTagUpdates: false, name: 'scanme'
             sh 'rm scanme'
+            docker.withRegistry('https://registry.benvon.net','docker-publisher'){
+              app.push("latest")
+            }
           }
 	  stage('clean up local'){
             script {
@@ -44,25 +40,4 @@ node('pierre'){
             }
 	  }	
         }
-/*
-        stage ('Tests') {
-	        parallel 'static': {
-	            sh "echo 'shell scripts to run static tests...'"
-	        },
-	        'unit': {
-	            sh "echo 'shell scripts to run unit tests...'"
-	        },
-	        'integration': {
-	            sh "echo 'shell scripts to run integration tests...'"
-	        }
-        }
-*/
-      	stage ('Deploy') {
-            sh "echo 'shell scripts to deploy to server...'"
-      	}
-    } catch (err) {
-        currentBuild.result = 'FAILED'
-        throw err
-    }
 }
-
