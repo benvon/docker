@@ -32,7 +32,7 @@ node('pierre'){
             }
           }
           stage('Scan image with Anchore'){
-            writeFile file: 'scanme', text: "https://registry.benvon.net/${buildimage}:autobuild-${env.BUILD_NUMBER}"
+            writeFile file: 'scanme', text: "registry.benvon.net/${buildimage}:autobuild-${env.BUILD_NUMBER}"
             anchore name: 'scanme'
             sh 'rm scanme'
           }
