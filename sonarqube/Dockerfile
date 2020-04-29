@@ -37,7 +37,7 @@ RUN set -x \
     && chown -R sonarqube:sonarqube sonarqube \
     && rm sonarqube.zip* \
     && rm -rf $SONARQUBE_HOME/bin/* \
-    && mkdir $SONARQUBE_HOME/bin/
+    && mkdir -p $SONARQUBE_HOME/bin/
 
 VOLUME "$SONARQUBE_HOME/data"
 
