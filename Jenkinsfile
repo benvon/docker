@@ -25,9 +25,10 @@ node('pierre'){
             }
           }
           stage('Scan with Anchore'){
-            writeFile file: 'scanme', text: "registry.benvon.net/${buildimage}:autobuild-${env.BUILD_NUMBER}"
-            anchore annotations: [[key: 'imageType', value: "${buildimage}"]], autoSubscribeTagUpdates: false, name: 'scanme'
-            sh 'rm scanme'
+           // skip scanner
+           // writeFile file: 'scanme', text: "registry.benvon.net/${buildimage}:autobuild-${env.BUILD_NUMBER}"
+           // anchore annotations: [[key: 'imageType', value: "${buildimage}"]], autoSubscribeTagUpdates: false, name: 'scanme'
+           // sh 'rm scanme'
             docker.withRegistry('https://registry.benvon.net','docker-publisher'){
               app.push("latest")
             }
