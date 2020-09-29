@@ -2,7 +2,8 @@ node('pierre'){
     
     def app
     //def images = ["varnish", "haproxy", "mysql57-bv", "php72-bv"]
-    def images = ["haproxy", "mysql57-bv", "php72-bv", "php73-bv", "php74-bv", "varnish", "sonarqube"]
+    //def images = ["haproxy", "mysql57-bv", "php72-bv", "php73-bv", "php74-bv", "varnish", "sonarqube"]
+    def images = ["haproxy", "mysql57-bv", "php72-bv", "php73-bv", "php74-bv", "varnish"]
 
         stage ('Code Checkout') {
            checkout([$class: 'GitSCM', branches: [[name: '*/master']],
